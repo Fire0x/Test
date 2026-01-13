@@ -1043,17 +1043,29 @@
                     if (aptData.id) {
                         const apartmentIndex = apartments.findIndex(apt => apt.id === aptData.id);
                         if (apartmentIndex === -1) {
-                            throw new Error('Apartment not found');
+                            // Apartment with this ID doesn't exist, create it
+                            apartments.push({
+                                ...aptData,
+                                reviews: reviews
+                            });
+                            debugManager.log('Created new apartment with ID:', aptData.id);
+                        } else {
+                            // Apartment exists, update it
+                            const existingReviews = apartments[apartmentIndex].reviews || [];
+                            apartments[apartmentIndex] = { ...apartments[apartmentIndex], ...aptData };
+                            // Merge reviews: keep existing ones, add new ones
+                            apartments[apartmentIndex].reviews = [...existingReviews, ...reviews];
+                            debugManager.log('Updated existing apartment with ID:', aptData.id);
                         }
-                        apartments[apartmentIndex] = { ...apartments[apartmentIndex], ...aptData };
-                        apartments[apartmentIndex].reviews = reviews;
                     } else {
+                        // No ID provided, generate a new one
                         const newId = apartments.length > 0 ? Math.max(...apartments.map(apt => apt.id || 0)) + 1 : 1;
                         apartments.push({
                             id: newId,
                             ...aptData,
                             reviews: reviews
                         });
+                        debugManager.log('Created new apartment with auto-generated ID:', newId);
                     }
                     
                     successCount++;
@@ -1324,18 +1336,32 @@
                         if (aptData.id) {
                             const apartmentIndex = apartments.findIndex(apt => apt.id === aptData.id);
                             if (apartmentIndex === -1) {
-                                throw new Error('Apartment not found');
+                                // Apartment with this ID doesn't exist, create it
+                                apartments.push({
+                                    ...aptData,
+                                    reviews: reviews
+                                });
+                                apartmentsImported++;
+                                debugManager.log('Created new apartment with ID:', aptData.id);
+                            } else {
+                                // Apartment exists, update it
+                                const existingReviews = apartments[apartmentIndex].reviews || [];
+                                apartments[apartmentIndex] = { ...apartments[apartmentIndex], ...aptData };
+                                // Merge reviews: keep existing ones, add new ones
+                                apartments[apartmentIndex].reviews = [...existingReviews, ...reviews];
+                                apartmentsUpdated++;
+                                debugManager.log('Updated existing apartment with ID:', aptData.id);
                             }
-                            apartments[apartmentIndex] = { ...apartments[apartmentIndex], ...aptData };
-                            apartmentsUpdated++;
                         } else {
+                            // No ID provided, generate a new one
                             const newId = apartments.length > 0 ? Math.max(...apartments.map(apt => apt.id || 0)) + 1 : 1;
                             apartments.push({
                                 id: newId,
                                 ...aptData,
-                                reviews: []
+                                reviews: reviews
                             });
                             apartmentsImported++;
+                            debugManager.log('Created new apartment with auto-generated ID:', newId);
                         }
                     } catch (error) {
                         apartmentsErrors++;
