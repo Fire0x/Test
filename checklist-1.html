@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheTycoon - Fire0x Tools</title>
+    <!-- Title and favicon will be set by site-config.js -->
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/styles.css" rel="stylesheet">
+    <!-- Base CSS (load order matters) -->
+    <link href="css/base/variables.css" rel="stylesheet">
+    <link href="css/base/common.css" rel="stylesheet">
+    <link href="css/base/responsive.css" rel="stylesheet">
+    <!-- Page-specific CSS -->
+    <link href="css/pages/checklist-base.css" rel="stylesheet">
+    <link href="css/pages/checklist.css" rel="stylesheet">
+    <link href="css/pages/checklist-1.css" rel="stylesheet">
+</head>
+<body>
+
+
+    <!-- Main Content -->
+    <main class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="glow-text">📋 Business Checklist</h1>
+            <p class="lead">Track all open businesses across all tiers</p>
+        </div>
+
+        <!-- Time Displays -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <div class="time-display">
+                                    <strong>🕐 Local time:</strong> 
+                                    <div id="local-time" class="text-info" style="font-size: 1.2rem; margin-top: 0.5rem;">--:--:--</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <div class="time-display">
+                                    <strong>🕐 Eastern Time:</strong> 
+                                    <div id="eastern-time" class="text-info" style="font-size: 1.2rem; margin-top: 0.5rem;">--:--:--</div>
+                                    <span id="eastern-tz" class="text-muted small">EST</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="time-display">
+                                    <strong>🔄 Server Reboot:</strong> 
+                                    <div id="reboot-countdown" class="text-warning" style="font-size: 1.2rem; margin-top: 0.5rem;">--:--:--</div>
+                                    <small class="text-muted d-block mt-1">Next: <span id="reboot-time-et">3:00 AM EST</span> / <span id="reboot-time-local">--:--</span></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Use Section -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header" style="background-color: var(--card-bg); border-bottom: 1px solid var(--card-border);">
+                        <button class="btn btn-link text-decoration-none w-100 text-start p-0" type="button" data-bs-toggle="collapse" data-bs-target="#howToUseCollapse" aria-expanded="true" aria-controls="howToUseCollapse" style="color: var(--text-color); font-weight: 600;">
+                            <span>📖 How to Use This Page</span>
+                            <span class="float-end" id="howToUseToggle">▼</span>
+                        </button>
+                    </div>
+                    <div class="collapse show" id="howToUseCollapse">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h6 class="mb-2"><strong>Step 1: Set Up Your Tiers</strong></h6>
+                                <p class="mb-2">Click on <strong>⚙️ Configuration Management</strong> above to expand it, then click <span class="badge bg-primary">➕ Add Tier</span> to create your first tier. Give it a name (e.g., "Tier 1: Fruit Stand"), choose an icon (emoji), and select a color.</p>
+                                
+                                <h6 class="mb-2"><strong>Step 2: Add Products</strong></h6>
+                                <p class="mb-2">Before adding businesses, you can set up products for each tier. In the Configuration Management panel, click <span class="badge bg-primary">➕ Add Product</span> to create products:</p>
+                                <ul class="mb-3">
+                                    <li><strong>Tier:</strong> Select which tier this product belongs to (products are tier-specific)</li>
+                                    <li><strong>Product Name:</strong> Enter the product name (e.g., "Apple", "Orange", "Banana")</li>
+                                </ul>
+                                <p class="mb-2"><em>Note:</em> Products help you track which items each business is producing. You can add products at any time, but it's recommended to set them up before adding businesses.</p>
+                                
+                                <h6 class="mb-2"><strong>Step 3: Add Businesses</strong></h6>
+                                <p class="mb-2">In the Configuration Management panel, click <span class="badge bg-primary">➕ Add Business</span> to add businesses to your tiers. Fill in:</p>
+                                <ul class="mb-3">
+                                    <li><strong>Business Code:</strong> A unique identifier (e.g., "TIER1-BIZ001")</li>
+                                    <li><strong>Business Name:</strong> The location or name (e.g., "Route 68, Grand Senora Desert")</li>
+                                    <li><strong>Tier:</strong> Select which tier this business belongs to</li>
+                                    <li><strong>Max Stock:</strong> Maximum stock capacity for this business</li>
+                                    <li><strong>Collection Storage:</strong> Maximum collection storage capacity</li>
+                                    <li><strong>Notes:</strong> <em>Optional</em> - Add notes to help remember which business this is, such as employee names or other identifying information. Hover over the ℹ️ icon for more details. This makes it easy to identify businesses when you have multiple locations.</li>
+                                </ul>
+                                
+                                <h6 class="mb-2"><strong>Step 4: Track Your Progress</strong></h6>
+                                <p class="mb-2">Once businesses are added, they will appear in the checklist below. You can:</p>
+                                <ul class="mb-3">
+                                    <li><strong>Check off businesses:</strong> Click the checkbox when you've completed a task (checked businesses are excluded from summary calculations)</li>
+                                    <li><strong>Add Money:</strong> Enter the current money amount in the Money field</li>
+                                    <li><strong>Track Stock:</strong> Enter current stock to see how much more is needed to reach max. The system automatically calculates "Stock Needed" based on Max Stock - Current Stock</li>
+                                    <li><strong>Select Product:</strong> Choose which product this business is producing from the Product dropdown. This is used for summary calculations</li>
+                                    <li><strong>Track Collection:</strong> Enter collection storage amounts (if applicable)</li>
+                                    <li><strong>Add Notes:</strong> Add any notes or reminders for each business</li>
+                                </ul>
+                                
+                                <h6 class="mb-2"><strong>Step 5: View Tier Summaries</strong></h6>
+                                <p class="mb-2">Each tier card has a <span class="badge bg-info">📊 Show Summary</span> / <span class="badge bg-info">📊 Hide Summary</span> button. Click it to view a summary table showing:</p>
+                                <ul class="mb-3">
+                                    <li><strong>Product Name:</strong> All products assigned to businesses in this tier</li>
+                                    <li><strong>Total Products Needed:</strong> Sum of stock needed for each product across all businesses in the tier</li>
+                                </ul>
+                                <p class="mb-2"><em>Note:</em> Businesses with checked checkboxes are excluded from summary calculations. The summary only counts businesses that need stock.</p>
+                                
+                                <h6 class="mb-2"><strong>Step 6: View All Business Summary</strong></h6>
+                                <p class="mb-2">Below the tier cards, you'll find the <strong>📊 All Business Summary</strong> card (appears when products are selected). This shows:</p>
+                                <ul class="mb-3">
+                                    <li><strong>Product Name:</strong> All products across all tiers</li>
+                                    <li><strong>Tier Columns:</strong> Stock needed for each product per tier</li>
+                                    <li><strong>Grand Total:</strong> Total stock needed for each product across all tiers</li>
+                                    <li><strong>Footer Row:</strong> Grand totals for each tier and overall grand total</li>
+                                </ul>
+                                <p class="mb-2">This summary helps you see at a glance how much of each product you need across all your businesses.</p>
+                                
+                                <h6 class="mb-2"><strong>Step 7: Import/Export Configuration</strong></h6>
+                                <p class="mb-2">You can backup and restore your configuration (including tiers, businesses, products, and product selections):</p>
+                                <ul class="mb-3">
+                                    <li><strong>Export:</strong> Click <span class="badge bg-success">📤 Export Configuration</span> to copy your setup. Then copy the JSON text:</li>
+                                    <ul class="mb-2">
+                                        <li><strong>Windows/Linux:</strong> Press <kbd>Ctrl</kbd> + <kbd>A</kbd> then <kbd>Ctrl</kbd> + <kbd>C</kbd></li>
+                                        <li><strong>Mac:</strong> Press <kbd>Cmd</kbd> + <kbd>A</kbd> then <kbd>Cmd</kbd> + <kbd>C</kbd></li>
+                                    </ul>
+                                    <li><strong>Import:</strong> Click <span class="badge bg-warning">📥 Import Configuration</span>, then paste your saved JSON:</li>
+                                    <ul class="mb-2">
+                                        <li><strong>Windows/Linux:</strong> Press <kbd>Ctrl</kbd> + <kbd>V</kbd></li>
+                                        <li><strong>Mac:</strong> Press <kbd>Cmd</kbd> + <kbd>V</kbd></li>
+                                    </ul>
+                                    <li>Click <span class="badge bg-primary">Import</span> to load your configuration</li>
+                                    <li><strong>Template:</strong> Click <span class="badge bg-primary">📋 Load Template</span> to load an example configuration. The template file (<code>checklist-template.json</code>) contains sample tiers, businesses, and products that you can customize. The template loads into the import modal for review before applying. You can edit the template file directly to create your own starting configuration.</li>
+                                </ul>
+                                <p class="mb-0">All your progress is automatically saved to your browser. Use <span class="badge bg-info">📋 Generate Checklist</span> to create a CSV report (includes product information). For more details on copy/paste shortcuts, see the <a href="merchants.html">Traveling Merchants</a> page.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- All Business Summary -->
+        <div class="card mt-4 mb-4" id="allBusinessSummaryCard" style="display: none;">
+            <div class="card-header" style="background-color: var(--card-bg); border-bottom: 1px solid var(--card-border);">
+                <button class="btn btn-link text-decoration-none w-100 text-start p-0" type="button" data-bs-toggle="collapse" data-bs-target="#allBusinessSummaryCollapse" aria-expanded="true" aria-controls="allBusinessSummaryCollapse" style="color: var(--text-color); font-weight: 600;">
+                    <span>📊 All Business Summary</span>
+                    <span class="float-end" id="allBusinessSummaryToggle">▼</span>
+                </button>
+            </div>
+            <div class="collapse show" id="allBusinessSummaryCollapse">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr id="allBusinessSummaryHeaderRow">
+                                    <th>Product Name</th>
+                                    <!-- Tier columns will be dynamically generated here -->
+                                    <th class="text-end"><strong>Grand Total</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody id="allBusinessSummaryBody">
+                                <tr>
+                                    <td colspan="100%" class="text-center text-muted">Loading summary...</td>
+                                </tr>
+                            </tbody>
+                            <tfoot id="allBusinessSummaryFooter">
+                                <!-- Grand Total row will be dynamically generated here -->
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Panel -->
+        <div class="card config-panel">
+            <div class="card-header">
+                <button class="btn btn-link config-collapse-btn text-decoration-none text-white" type="button" data-bs-toggle="collapse" data-bs-target="#configCollapse" aria-expanded="false" aria-controls="configCollapse">
+                    ⚙️ Configuration Management <span class="float-end">▼</span>
+                </button>
+            </div>
+            <div class="collapse" id="configCollapse">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h5>Tier Management</h5>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <button type="button" class="btn btn-primary" onclick="openAddTierModal()">➕ Add Tier</button>
+                            <button type="button" class="btn btn-info" onclick="openEditTierModal()">✏️ Edit Tier</button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h5>Business Management</h5>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <button type="button" class="btn btn-primary" onclick="openAddBusinessModal()">➕ Add Business</button>
+                            <button type="button" class="btn btn-info" onclick="openEditBusinessModal()">✏️ Edit Business</button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h5>Product Management</h5>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <button type="button" class="btn btn-primary" onclick="openAddProductModal()">➕ Add Product</button>
+                            <button type="button" class="btn btn-info" onclick="openEditProductModal()">✏️ Edit Product</button>
+                            <button type="button" class="btn btn-secondary" onclick="openProductOrderModal()">📋 Edit Product Order</button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h5>Import/Export</h5>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <button type="button" class="btn btn-success" onclick="exportConfiguration()">📤 Export Configuration</button>
+                            <button type="button" class="btn btn-warning" onclick="openImportModal()">📥 Import Configuration</button>
+                            <button type="button" class="btn btn-primary" onclick="loadTemplate()">📋 Load Template</button>
+                            <button type="button" class="btn btn-info" onclick="generatePersonTableString()">📋 Generate Checklist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-secondary" role="alert" id="loadingAlert">
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Loading businesses from localStorage...
+        </div>
+
+        <!-- Dynamic Content Container -->
+        <div id="checklistContainer">
+            <!-- Content will be dynamically generated here -->
+        </div>
+
+        <!-- Summary -->
+        <div class="card mt-4" id="summaryAlert" style="display: none;">
+            <div class="card-header" style="background-color: var(--card-bg); border-bottom: 1px solid var(--card-border);">
+                <button class="btn btn-link text-decoration-none w-100 text-start p-0" type="button" data-bs-toggle="collapse" data-bs-target="#summaryCollapse" aria-expanded="true" aria-controls="summaryCollapse" style="color: var(--text-color); font-weight: 600;">
+                    <span>📊 Summary</span>
+                    <span class="float-end" id="summaryToggle">▼</span>
+                </button>
+            </div>
+            <div class="collapse show" id="summaryCollapse">
+                <div class="card-body">
+                    <p class="mb-0" id="summaryContent" style="font-size: 1.05rem; line-height: 1.8;">
+                        <!-- Summary will be dynamically generated here -->
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-4 d-flex flex-wrap gap-2">
+            <button type="button" class="btn btn-primary" onclick="checkAll()">✅ Check All</button>
+            <button type="button" class="btn btn-secondary" onclick="uncheckAll()">❌ Uncheck All</button>
+            <button type="button" class="btn btn-info" onclick="saveProgress()">💾 Save Progress</button>
+            <button type="button" class="btn btn-danger" onclick="clearProgress()">🗑️ Clear Progress</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm ms-2" id="debugToggleBtn" onclick="toggleDebug()">
+                <span id="debugToggleText">🔍 Debug: OFF</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- Tier Modal -->
+    <div class="modal fade" id="tierModal" tabindex="-1" aria-labelledby="tierModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tierModalLabel">Add/Edit Tier</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="tierForm">
+                        <input type="hidden" id="tierId" value="">
+                        <div class="mb-3">
+                            <label for="tierName" class="form-label">Tier Name</label>
+                            <input type="text" class="form-control" id="tierName" required placeholder="e.g., Tier 1: Fruit Stand">
+                        </div>
+                        <div class="mb-3">
+                            <label for="tierIcon" class="form-label">Icon (Emoji)</label>
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" id="tierIcon" placeholder="e.g., 🍎" maxlength="2">
+                                <button class="btn btn-outline-secondary" type="button" onclick="toggleEmojiPicker()" title="Show emoji picker">
+                                    😀
+                                </button>
+                            </div>
+                            <div id="emojiPicker" class="emoji-picker-container" style="display: none;">
+                                <div class="emoji-search">
+                                    <input type="text" id="emojiSearchInput" placeholder="🔍 Search emojis..." oninput="filterEmojis()">
+                                </div>
+                                <div id="emojiGridContainer">
+                                    <div class="emoji-category" data-category="special">⭐ Special</div>
+                                    <div class="emoji-grid" data-category="special">
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🐨')" title="Koala" data-category="special" data-search="koala">🐨</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🐴')" title="Horse" data-category="special" data-search="horse">🐴</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('👨')" title="Dad" data-category="special" data-search="dad father">👨</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌙')" title="Luna" data-category="special" data-search="luna moon">🌙</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚚')" title="Truck" data-category="special" data-search="Truck">🚚</button>
+                                    </div>
+                                    <div class="emoji-category" data-category="food">🍔 Food & Drink</div>
+                                    <div class="emoji-grid" data-category="food">
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍎')" title="Apple">🍎</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍊')" title="Orange">🍊</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍌')" title="Banana">🍌</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍇')" title="Grapes">🍇</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍓')" title="Strawberry">🍓</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥝')" title="Kiwi">🥝</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍉')" title="Watermelon">🍉</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('☕')" title="Coffee">☕</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍵')" title="Tea">🍵</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍔')" title="Burger">🍔</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌭')" title="Hot Dog">🌭</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌮')" title="Taco">🌮</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌯')" title="Burrito">🌯</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍕')" title="Pizza">🍕</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍗')" title="Chicken">🍗</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍖')" title="Meat on Bone">🍖</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍰')" title="Cake">🍰</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧁')" title="Cupcake">🧁</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍪')" title="Cookie">🍪</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍩')" title="Donut">🍩</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥤')" title="Drink">🥤</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍺')" title="Beer">🍺</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍷')" title="Wine">🍷</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥂')" title="Cheers">🥂</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🐟')" title="Fish">🐟</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🦐')" title="Shrimp">🦐</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🦞')" title="Lobster">🦞</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🦀')" title="Crab">🦀</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥩')" title="Meat">🥩</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥓')" title="Bacon">🥓</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌾')" title="Wheat">🌾</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌽')" title="Corn">🌽</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥕')" title="Carrot">🥕</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥔')" title="Potato">🥔</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥬')" title="Leafy Green">🥬</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥒')" title="Cucumber">🥒</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥑')" title="Avocado">🥑</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍞')" title="Bread">🍞</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥐')" title="Croissant">🥐</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥨')" title="Pretzel">🥨</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧀')" title="Cheese">🧀</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥚')" title="Egg">🥚</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥛')" title="Milk">🥛</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥞')" title="Pancakes">🥞</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧇')" title="Waffle">🧇</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥯')" title="Bagel">🥯</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥖')" title="Baguette">🥖</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥪')" title="Sandwich">🥪</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥙')" title="Stuffed Flatbread">🥙</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧆')" title="Falafel">🧆</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥘')" title="Shallow Pan of Food">🥘</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍲')" title="Pot of Food">🍲</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍱')" title="Bento Box">🍱</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍘')" title="Rice Cracker">🍘</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍙')" title="Rice Ball">🍙</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍚')" title="Cooked Rice">🍚</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍛')" title="Curry Rice">🍛</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍜')" title="Steaming Bowl">🍜</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍝')" title="Spaghetti">🍝</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍠')" title="Roasted Sweet Potato">🍠</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍢')" title="Oden">🍢</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍣')" title="Sushi">🍣</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍤')" title="Fried Shrimp">🍤</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍥')" title="Fish Cake">🍥</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥮')" title="Moon Cake">🥮</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍡')" title="Dango">🍡</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥟')" title="Dumpling">🥟</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥠')" title="Fortune Cookie">🥠</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥡')" title="Takeout Box">🥡</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧈')" title="Butter">🧈</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧂')" title="Salt">🧂</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥜')" title="Peanuts">🥜</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌰')" title="Chestnut">🌰</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍯')" title="Honey Pot">🍯</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥄')" title="Spoon">🥄</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍴')" title="Fork and Knife">🍴</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍽️')" title="Fork and Knife with Plate">🍽️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥣')" title="Bowl with Spoon">🥣</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥃')" title="Tumbler Glass">🥃</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧃')" title="Beverage Box">🧃</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧉')" title="Mate">🧉</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧊')" title="Ice">🧊</button>
+                                    </div>
+                                    <div class="emoji-category" data-category="buildings">🏢 Buildings & Places</div>
+                                    <div class="emoji-grid" data-category="buildings">
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏪')" title="Store">🏪</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏬')" title="Department Store">🏬</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏭')" title="Factory">🏭</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏢')" title="Office">🏢</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏨')" title="Hotel">🏨</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏦')" title="Bank">🏦</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏥')" title="Hospital">🏥</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏫')" title="School">🏫</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎓')" title="Graduation Cap">🎓</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏰')" title="Castle">🏰</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏯')" title="Japanese Castle">🏯</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏛️')" title="Building">🏛️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛪')" title="Church">⛪</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🕌')" title="Mosque">🕌</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🕍')" title="Synagogue">🕍</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛕')" title="Temple">🛕</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏗️')" title="Construction">🏗️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚧')" title="Construction Sign">🚧</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛏️')" title="Pick">⛏️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔨')" title="Hammer">🔨</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⚒️')" title="Hammer and Pick">⚒️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛠️')" title="Hammer and Wrench">🛠️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔩')" title="Nut and Bolt">🔩</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⚙️')" title="Gear">⚙️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧰')" title="Toolbox">🧰</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔧')" title="Wrench">🔧</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🪚')" title="Saw">🪚</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🪓')" title="Axe">🪓</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🪣')" title="Bucket">🪣</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧱')" title="Brick">🧱</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🪵')" title="Wood">🪵</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🪨')" title="Rock">🪨</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏠')" title="House">🏠</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏡')" title="House with Garden">🏡</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏘️')" title="Houses">🏘️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏚️')" title="Derelict House">🏚️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛺')" title="Tent">⛺</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏕️')" title="Camping">🏕️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏖️')" title="Beach">🏖️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏝️')" title="Desert Island">🏝️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏜️')" title="Desert">🏜️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌆')" title="Cityscape at Dusk">🌆</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌇')" title="Sunset">🌇</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌃')" title="Night with Stars">🌃</button>
+                                    </div>
+                                    <div class="emoji-category" data-category="vehicles">🚗 Vehicles</div>
+                                    <div class="emoji-grid" data-category="vehicles">
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚗')" title="Car">🚗</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚕')" title="Taxi">🚕</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚙')" title="SUV">🚙</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚐')" title="Van">🚐</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛻')" title="Pickup Truck">🛻</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚚')" title="Truck">🚚</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚛')" title="Articulated Lorry">🚛</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚜')" title="Tractor">🚜</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏎️')" title="Racing Car">🏎️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏍️')" title="Motorcycle">🏍️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛵')" title="Scooter">🛵</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚲')" title="Bicycle">🚲</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛴')" title="Kick Scooter">🛴</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛹')" title="Skateboard">🛹</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛼')" title="Roller Skate">🛼</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚢')" title="Ship">🚢</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛴️')" title="Ferry">⛴️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛥️')" title="Motor Boat">🛥️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚤')" title="Speedboat">🚤</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛵')" title="Sailboat">⛵</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('✈️')" title="Plane">✈️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛩️')" title="Small Plane">🛩️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛫')" title="Airplane Departure">🛫</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛬')" title="Airplane Arrival">🛬</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚁')" title="Helicopter">🚁</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🪂')" title="Parachute">🪂</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💺')" title="Seat">💺</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚟')" title="Suspension Railway">🚟</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚠')" title="Mountain Cableway">🚠</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚡')" title="Aerial Tramway">🚡</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚀')" title="Rocket">🚀</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛸')" title="UFO">🛸</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚂')" title="Train">🚂</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚃')" title="Railway Car">🚃</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚄')" title="High-Speed Train">🚄</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚅')" title="Bullet Train">🚅</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚆')" title="Train">🚆</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚇')" title="Metro">🚇</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚈')" title="Light Rail">🚈</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚉')" title="Station">🚉</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚊')" title="Tram">🚊</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚝')" title="Monorail">🚝</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚞')" title="Mountain Railway">🚞</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚌')" title="Bus">🚌</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚍')" title="Oncoming Bus">🚍</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚎')" title="Trolleybus">🚎</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚑')" title="Ambulance">🚑</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚒')" title="Fire Engine">🚒</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚓')" title="Police Car">🚓</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚔')" title="Oncoming Police Car">🚔</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚨')" title="Rotating Light">🚨</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛽')" title="Gas">⛽</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛣️')" title="Motorway">🛣️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛤️')" title="Railway Track">🛤️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛢️')" title="Oil Drum">🛢️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛳️')" title="Passenger Ship">🛳️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚏')" title="Bus Stop">🚏</button>
+                                    </div>
+                                    <div class="emoji-category" data-category="business">💰 Money & Business</div>
+                                    <div class="emoji-grid" data-category="business">
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💰')" title="Money">💰</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💴')" title="Yen">💴</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💵')" title="Dollar">💵</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💶')" title="Euro">💶</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💷')" title="Pound">💷</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💸')" title="Money with Wings">💸</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💳')" title="Credit Card">💳</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💎')" title="Diamond">💎</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💍')" title="Ring">💍</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💼')" title="Briefcase">💼</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧳')" title="Luggage">🧳</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📊')" title="Chart">📊</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📈')" title="Growth">📈</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📉')" title="Decrease">📉</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📋')" title="Clipboard">📋</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📌')" title="Pushpin">📌</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📍')" title="Round Pushpin">📍</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📦')" title="Package">📦</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📨')" title="Incoming Envelope">📨</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📧')" title="Email">📧</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📮')" title="Postbox">📮</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛒')" title="Shopping Cart">🛒</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛍️')" title="Shopping Bags">🛍️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛎️')" title="Bellhop Bell">🛎️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏷️')" title="Label">🏷️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎫')" title="Ticket">🎫</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎟️')" title="Admission Tickets">🎟️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📞')" title="Telephone Receiver">📞</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📠')" title="Fax Machine">📠</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📪')" title="Closed Mailbox">📪</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📫')" title="Open Mailbox">📫</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📬')" title="Mailbox with Mail">📬</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📭')" title="Mailbox with No Mail">📭</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📯')" title="Postal Horn">📯</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📩')" title="Envelope with Arrow">📩</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📤')" title="Outbox Tray">📤</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📥')" title="Inbox Tray">📥</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📝')" title="Memo">📝</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📄')" title="Document">📄</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📃')" title="Page with Curl">📃</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📑')" title="Bookmark Tabs">📑</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📒')" title="Ledger">📒</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📓')" title="Notebook">📓</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📔')" title="Notebook with Decorative Cover">📔</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📕')" title="Closed Book">📕</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📗')" title="Green Book">📗</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📘')" title="Blue Book">📘</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📙')" title="Orange Book">📙</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📚')" title="Books">📚</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📖')" title="Open Book">📖</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔖')" title="Bookmark">🔖</button>
+                                    </div>
+                                    <div class="emoji-category" data-category="entertainment">🎪 Entertainment</div>
+                                    <div class="emoji-grid" data-category="entertainment">
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎪')" title="Circus">🎪</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎭')" title="Theater">🎭</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎨')" title="Art">🎨</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎬')" title="Movie">🎬</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎤')" title="Microphone">🎤</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎧')" title="Headphone">🎧</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎼')" title="Musical Score">🎼</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎹')" title="Musical Keyboard">🎹</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥁')" title="Drum">🥁</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎷')" title="Saxophone">🎷</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎺')" title="Trumpet">🎺</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎻')" title="Violin">🎻</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎵')" title="Music">🎵</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎶')" title="Musical Notes">🎶</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎮')" title="Game">🎮</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🕹️')" title="Joystick">🕹️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎯')" title="Target">🎯</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎳')" title="Bowling">🎳</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎰')" title="Slot">🎰</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎲')" title="Dice">🎲</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🃏')" title="Joker">🃏</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🀄')" title="Mahjong">🀄</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎴')" title="Playing Cards">🎴</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎟️')" title="Admission Tickets">🎟️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎫')" title="Ticket">🎫</button>
+                                    </div>
+                                    <div class="emoji-category" data-category="technology">📱 Technology</div>
+                                    <div class="emoji-grid" data-category="technology">
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📱')" title="Phone">📱</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📲')" title="Mobile Phone with Arrow">📲</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('☎️')" title="Telephone">☎️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📞')" title="Telephone Receiver">📞</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📟')" title="Pager">📟</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📠')" title="Fax Machine">📠</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💻')" title="Computer">💻</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🖥️')" title="Desktop Computer">🖥️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🖨️')" title="Printer">🖨️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⌨️')" title="Keyboard">⌨️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🖱️')" title="Computer Mouse">🖱️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🖲️')" title="Trackball">🖲️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💾')" title="Floppy Disk">💾</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💿')" title="Optical Disk">💿</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📀')" title="DVD">📀</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📺')" title="TV">📺</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📻')" title="Radio">📻</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📷')" title="Camera">📷</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📸')" title="Camera with Flash">📸</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📹')" title="Video Camera">📹</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎥')" title="Movie Camera">🎥</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📼')" title="Videocassette">📼</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔍')" title="Magnifying Glass">🔍</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔎')" title="Magnifying Glass Tilted Right">🔎</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔧')" title="Tool">🔧</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⚡')" title="Lightning">⚡</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔌')" title="Electric Plug">🔌</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💡')" title="Light Bulb">💡</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔦')" title="Flashlight">🔦</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🕯️')" title="Candle">🕯️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧯')" title="Fire Extinguisher">🧯</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🪣')" title="Bucket">🪣</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧰')" title="Toolbox">🧰</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧲')" title="Magnet">🧲</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔬')" title="Microscope">🔬</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔭')" title="Telescope">🔭</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📡')" title="Satellite">📡</button>
+                                    </div>
+                                    <div class="emoji-category" data-category="symbols">⭐ Symbols & Status</div>
+                                    <div class="emoji-grid" data-category="symbols">
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⭐')" title="Star">⭐</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌟')" title="Glowing Star">🌟</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💫')" title="Dizzy">💫</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('✨')" title="Sparkles">✨</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔥')" title="Fire">🔥</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💥')" title="Explosion">💥</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💢')" title="Anger Symbol">💢</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💯')" title="Hundred Points">💯</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('✅')" title="Check Mark">✅</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('❌')" title="Cross Mark">❌</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⭕')" title="Heavy Large Circle">⭕</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎯')" title="Target">🎯</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎪')" title="Circus Tent">🎪</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎨')" title="Artist Palette">🎨</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏆')" title="Trophy">🏆</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥇')" title="1st Place Medal">🥇</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥈')" title="2nd Place Medal">🥈</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🥉')" title="3rd Place Medal">🥉</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏅')" title="Sports Medal">🏅</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎖️')" title="Military Medal">🎖️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('👑')" title="Crown">👑</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💍')" title="Ring">💍</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💎')" title="Gem">💎</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔑')" title="Key">🔑</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🗝️')" title="Old Key">🗝️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎁')" title="Gift">🎁</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎀')" title="Ribbon">🎀</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎗️')" title="Reminder Ribbon">🎗️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏵️')" title="Rosette">🏵️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎟️')" title="Admission Tickets">🎟️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎫')" title="Ticket">🎫</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎖️')" title="Medal">🎖️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎗️')" title="Reminder Ribbon">🎗️</button>
+                                </div>
+                                    <div class="emoji-category" data-category="nature">🌳 Nature</div>
+                                    <div class="emoji-grid" data-category="nature">
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌳')" title="Tree">🌳</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌲')" title="Evergreen Tree">🌲</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌴')" title="Palm Tree">🌴</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌱')" title="Seedling">🌱</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌿')" title="Herb">🌿</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍀')" title="Four Leaf Clover">🍀</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍃')" title="Leaf">🍃</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍂')" title="Fallen Leaf">🍂</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🍁')" title="Maple Leaf">🍁</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌾')" title="Sheaf of Rice">🌾</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌷')" title="Tulip">🌷</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌹')" title="Rose">🌹</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌺')" title="Hibiscus">🌺</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌻')" title="Sunflower">🌻</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌼')" title="Blossom">🌼</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌸')" title="Cherry Blossom">🌸</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌍')" title="Globe">🌍</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌎')" title="Globe Americas">🌎</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌏')" title="Globe Asia-Australia">🌏</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🗺️')" title="Map">🗺️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧭')" title="Compass">🧭</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛰️')" title="Mountain">⛰️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏔️')" title="Snow-Capped Mountain">🏔️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌋')" title="Volcano">🌋</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏕️')" title="Camping">🏕️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏖️')" title="Beach">🏖️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏜️')" title="Desert">🏜️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏝️')" title="Desert Island">🏝️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌊')" title="Water Wave">🌊</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌅')" title="Sunrise">🌅</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌄')" title="Sunrise Over Mountains">🌄</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌆')" title="Cityscape at Dusk">🌆</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌇')" title="Sunset">🌇</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌃')" title="Night with Stars">🌃</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌉')" title="Bridge at Night">🌉</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌌')" title="Milky Way">🌌</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌠')" title="Shooting Star">🌠</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('☀️')" title="Sun">☀️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌤️')" title="Sun Behind Small Cloud">🌤️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛅')" title="Sun Behind Cloud">⛅</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌥️')" title="Sun Behind Large Cloud">🌥️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('☁️')" title="Cloud">☁️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛈️')" title="Cloud with Lightning and Rain">⛈️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌦️')" title="Sun Behind Rain Cloud">🌦️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌧️')" title="Cloud with Rain">🌧️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛈️')" title="Thunder Cloud and Rain">⛈️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('❄️')" title="Snowflake">❄️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('☃️')" title="Snowman">☃️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛄')" title="Snowman Without Snow">⛄</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌨️')" title="Cloud with Snow">🌨️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌩️')" title="Cloud with Lightning">🌩️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌪️')" title="Tornado">🌪️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🌈')" title="Rainbow">🌈</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('☔')" title="Umbrella with Rain Drops">☔</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💧')" title="Droplet">💧</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('☂️')" title="Umbrella">☂️</button>
+                                    </div>
+                                    <div class="emoji-category" data-category="documents">📄 Documents & Items</div>
+                                    <div class="emoji-grid" data-category="documents">
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📄')" title="Document">📄</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📃')" title="Page with Curl">📃</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📑')" title="Bookmark Tabs">📑</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📊')" title="Bar Chart">📊</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📈')" title="Chart Increasing">📈</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📉')" title="Chart Decreasing">📉</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📋')" title="Clipboard">📋</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📝')" title="Memo">📝</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📌')" title="Pushpin">📌</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📍')" title="Round Pushpin">📍</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📎')" title="Paperclip">📎</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🖇️')" title="Linked Paperclips">🖇️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📏')" title="Straight Ruler">📏</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📐')" title="Triangular Ruler">📐</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('✂️')" title="Scissors">✂️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🗂️')" title="Card Index Dividers">🗂️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🗃️')" title="Card File Box">🗃️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🗄️')" title="File Cabinet">🗄️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🗑️')" title="Wastebasket">🗑️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧪')" title="Science">🧪</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧫')" title="Petri Dish">🧫</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧬')" title="DNA">🧬</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔬')" title="Microscope">🔬</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🔭')" title="Telescope">🔭</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('📡')" title="Satellite Antenna">📡</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💉')" title="Syringe">💉</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('💊')" title="Pill">💊</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🩹')" title="Adhesive Bandage">🩹</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🩺')" title="Stethoscope">🩺</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚪')" title="Door">🚪</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛏️')" title="Bed">🛏️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛋️')" title="Couch and Lamp">🛋️</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚽')" title="Toilet">🚽</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🚿')" title="Shower">🚿</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛁')" title="Bathtub">🛁</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧴')" title="Lotion Bottle">🧴</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧷')" title="Safety Pin">🧷</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧹')" title="Broom">🧹</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧺')" title="Basket">🧺</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧻')" title="Roll of Paper">🧻</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧼')" title="Soap">🧼</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧽')" title="Sponge">🧽</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🧯')" title="Fire Extinguisher">🧯</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🛒')" title="Shopping Cart">🛒</button>
+                                    </div>
+                                    <div class="emoji-category" data-category="landmarks">🗼 Landmarks</div>
+                                    <div class="emoji-grid" data-category="landmarks">
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🗼')" title="Tokyo Tower">🗼</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🗽')" title="Statue of Liberty">🗽</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('⛲')" title="Fountain">⛲</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎡')" title="Ferris Wheel">🎡</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🎢')" title="Roller Coaster">🎢</button>
+                                    <button type="button" class="emoji-btn" onclick="selectEmoji('🏟️')" title="Stadium">🏟️</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tierColor" class="form-label">Color Class</label>
+                            <select class="form-select" id="tierColor">
+                                <option value="bg-primary">Primary</option>
+                                <option value="bg-success">Success</option>
+                                <option value="bg-warning text-dark">Warning</option>
+                                <option value="bg-info">Info</option>
+                                <option value="bg-secondary">Secondary</option>
+                                <option value="bg-danger">Danger</option>
+                                <option value="bg-dark text-white">Dark</option>
+                                <option value="bg-light text-dark">Light</option>
+                                <option value="bg-white text-dark border">White</option>
+                                <option value="bg-primary bg-opacity-75 text-white">Primary (75% opacity)</option>
+                                <option value="bg-success bg-opacity-75 text-white">Success (75% opacity)</option>
+                                <option value="bg-info bg-opacity-75 text-white">Info (75% opacity)</option>
+                                <option value="bg-danger bg-opacity-75 text-white">Danger (75% opacity)</option>
+                                <option value="bg-warning bg-opacity-75 text-dark">Warning (75% opacity)</option>
+                                <option value="bg-secondary bg-opacity-75 text-white">Secondary (75% opacity)</option>
+                                <option value="bg-dark bg-opacity-75 text-white">Dark (75% opacity)</option>
+                                <option value="bg-primary bg-opacity-50 text-white">Primary (50% opacity)</option>
+                                <option value="bg-success bg-opacity-50 text-white">Success (50% opacity)</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveTier()">Save Tier</button>
+                    <button type="button" class="btn btn-danger" id="deleteTierBtn" onclick="deleteTier()" style="display: none;">Delete Tier</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Add/Edit Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="productForm">
+                        <input type="hidden" id="productId" value="">
+                        <div class="mb-3">
+                            <label for="productTierId" class="form-label">Tier <span class="text-danger">*</span></label>
+                            <select class="form-select" id="productTierId" required>
+                                <option value="">Select a tier...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Product Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="productName" required placeholder="e.g., Apple">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+                    <button type="button" class="btn btn-danger" id="deleteProductBtn" onclick="deleteProduct()" style="display: none;">Delete Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Order Modal -->
+    <div class="modal fade" id="productOrderModal" tabindex="-1" aria-labelledby="productOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productOrderModalLabel">Edit Product Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-3">Use the up/down buttons to reorder products. Products will appear in this order in Tier Summary and All Business Summary.</p>
+                    <div id="productOrderList" class="list-group">
+                        <!-- Product order items will be dynamically generated here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-info" onclick="sortProductsByTier()">Sort by Tier</button>
+                    <button type="button" class="btn btn-primary" onclick="saveProductOrder()">Save Order</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="resetProductOrder()">Reset to Alphabetical</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Business Modal -->
+    <div class="modal fade" id="businessModal" tabindex="-1" aria-labelledby="businessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="businessModalLabel">Add/Edit Business</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="businessForm">
+                        <input type="hidden" id="businessCodeOriginal" value="">
+                        <div class="mb-3">
+                            <label for="businessCode" class="form-label">Business Code <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="businessCode" required placeholder="e.g., TIER1-BIZ001">
+                            <small class="form-text text-muted">Required: A unique identifier for this business</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="businessName" class="form-label">Business Name</label>
+                            <input type="text" class="form-control" id="businessName" required placeholder="e.g., Route 68, Grand Senora Desert">
+                        </div>
+                        <div class="mb-3">
+                            <label for="businessNotes" class="form-label">
+                                Notes
+                                <span class="text-muted" style="cursor: help;" title="Use this field to remember which business this is, such as employee names or other identifying information. This helps you easily identify businesses when tracking multiple locations." data-bs-toggle="tooltip" data-bs-placement="right">ℹ️</span>
+                            </label>
+                            <textarea class="form-control" id="businessNotes" rows="2" placeholder="e.g., Employee: John Smith, or Location notes..."></textarea>
+                            <small class="form-text text-muted">Optional: Add notes to help remember which business this is (e.g., employee names)</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="businessTierId" class="form-label">Tier</label>
+                            <select class="form-select" id="businessTierId" required>
+                                <option value="">Select a tier...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="businessStatus" class="form-label">Status</label>
+                            <select class="form-select" id="businessStatus">
+                                <option value="Open">Open</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="businessMaxStock" class="form-label">Max Stock</label>
+                            <input type="text" class="form-control number-input" id="businessMaxStock" value="0" placeholder="0">
+                        </div>
+                        <div class="mb-3">
+                            <label for="businessCollectionStorage" class="form-label">Collection Storage</label>
+                            <input type="text" class="form-control number-input" id="businessCollectionStorage" value="0" placeholder="0">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="businessCanCollectItems">
+                            <label class="form-check-label" for="businessCanCollectItems">Can Collect Items</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveBusiness()">Save Business</button>
+                    <button type="button" class="btn btn-danger" id="deleteBusinessBtn" onclick="deleteBusiness()" style="display: none;">Delete Business</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importModalLabel">Import Configuration</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <strong>Warning:</strong> Importing will replace your current configuration. Make sure to export your current config first!
+                    </div>
+                    <div class="mb-3">
+                        <label for="importTextarea" class="form-label">Paste JSON Configuration:</label>
+                        <textarea class="form-control" id="importTextarea" rows="10" placeholder='{"tiers": [...], "businesses": [...]}'></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="importConfiguration()">Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export/Person Table Modal -->
+    <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exportModalLabel">Export / Person Table String</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-sm btn-secondary" onclick="copyToClipboard('exportTextarea')">📋 Copy to Clipboard</button>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exportTextarea" class="form-label">Generated String:</label>
+                        <textarea class="form-control" id="exportTextarea" rows="15" readonly></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-3">
+        <div class="container text-center">
+            <div id="version-display" class="mt-2" style="font-size: 0.875rem; color: #6c757d;">
+                <!-- Version will be inserted here by site-config.js -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- Site Configuration & Version Manager (load in order) -->
+    <script src="js/config/config-data.js"></script>
+    <script src="js/config/site-config.js"></script>
+    <script src="js/config/version-manager.js"></script>
+    <script src="js/site-config.js"></script>
+    <!-- Navbar Manager -->
+    <script src="js/navbar.js"></script>
+    <!-- Theme JS -->
+    <script src="js/theme.js"></script>
+    <!-- Number Formatter (optional) -->
+    <script>
+        // Load number-formatter.js if available
+        (function() {
+            const script = document.createElement('script');
+            script.src = 'js/number-formatter.js';
+            script.onerror = function() {
+                console.warn('number-formatter.js not found, continuing without it');
+            };
+            document.head.appendChild(script);
+        })();
+    </script>
+    <!-- Checklist JS - Modular Scripts -->
+    <script src="js/debug-manager.js"></script>
+    <script src="js/pages/checklist/checklist-shared.js"></script>
+    <script src="js/pages/checklist/checklist-core.js"></script>
+    <script src="js/pages/checklist/checklist-ui.js"></script>
+    <script src="js/pages/checklist/checklist-summary.js"></script>
+    <script src="js/pages/checklist/checklist-modals.js"></script>
+    <script src="js/pages/checklist/checklist-init.js"></script>
+</body>
+</html>

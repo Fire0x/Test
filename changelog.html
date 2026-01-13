@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog - TheTycoon Tools</title>
+    <!-- Title and favicon will be set by site-config.js -->
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/styles.css" rel="stylesheet">
+    <!-- Base CSS (load order matters) -->
+    <link href="css/base/variables.css" rel="stylesheet">
+    <link href="css/base/common.css" rel="stylesheet">
+    <link href="css/base/responsive.css" rel="stylesheet">
+    <!-- Page-specific CSS -->
+    <link href="css/pages/changelog.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar is injected by js/navbar.js -->
+
+    <!-- Page Header -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="glow-text">Changelog</h1>
+            <p class="lead">Summary of updates and improvements across all TheTycoon tools.</p>
+        </div>
+    </section>
+
+    <main class="container py-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- ===================================================================================== -->
+                <!-- CHANGELOG ENTRIES                                                                  -->
+                <!--                                                                                     -->
+                <!-- To add a new entry:                                                                -->
+                <!-- 1. Copy one entire <article class="changelog-entry">...</article> block below.     -->
+                <!-- 2. Paste it ABOVE the existing entries so newest changes are at the top.           -->
+                <!-- 3. Update the version, date, and bullet points with your notes.                    -->
+                <!--                                                                                     -->
+                <!-- You only need to edit TEXT inside the tags; do not change the structure.           -->
+                <!-- ===================================================================================== -->
+
+                <section id="changelog" class="mb-5">
+                    <h2 class="mb-4 text-center">Release Notes</h2>
+
+                    <!-- Example Entry (Most Recent) -->
+                    <article class="changelog-entry mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title mb-1">Version 1.0.2</h3>
+                                <p class="text-muted mb-3">2026-01-12</p>
+                                <ul class="mb-0">
+                                    <li>Added config-driven hero sections to all pages for centralized management.</li>
+                                    <li>Standardized hero section styling and structure across all HTML pages.</li>
+                                    <li>Updated script loading order in changelog.html to match apartment.html pattern (theme.js loads before config files).</li>
+                                    <li>Adjusted time display width to match "How to Use This Page" card width in merchants and education timer pages.</li>
+                                    <li>Standardized navbar injection comments across all pages.</li>
+                                    <li>Implemented modular CSS architecture across all pages for improved maintainability.</li>
+                                    <li>Created base CSS files (variables.css, common.css, responsive.css) for shared styles and components.</li>
+                                    <li>Extracted all inline styles to external CSS files organized by page.</li>
+                                    <li>Added page-specific CSS files for checklist, merchants, apartment, education timer, vehicle deliveries, info pages, changelog, and index.</li>
+                                    <li>Established primary/variant CSS structure for checklist and info page pairs (checklist.html/checklist-1.html, Info.html/Info-Ref.html).</li>
+                                    <li>Removed all inline &lt;style&gt; blocks from HTML files, improving code organization and browser caching.</li>
+                                    <li>Added comprehensive documentation comments to all CSS files explaining purpose, usage, and update instructions.</li>
+                                    <li>Updated all HTML pages to load CSS in correct cascade order (base → page-base → page-specific → variant-specific).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="changelog-entry mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title mb-1">Version 1.0.1</h3>
+                                <p class="text-muted mb-3">2026-01-08</p>
+                                <ul class="mb-0">
+                                    <li>Fixed how internal things worked.</li>
+                                    <li>Replaced the broken "How to Use This Page" section with a new "How to Use This Page" section.</li>
+                                    <li>Fixed Summaries on the Checklist page.</li>
+                                    <li>Fixed Checklist Editing Products.</li>
+                                    <li>Fixed Checklist Editing Business</li>
+                                    <li>Added a feedback form to the changelog page.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="changelog-entry mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title mb-1">Version 1.0.0</h3>
+                                <p class="text-muted mb-3">2026-01-06</p>
+                                <ul class="mb-0">
+                                    <li>Initial public changelog page created.</li>
+                                    <li>Added section to embed an external feedback form for updates.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Older entries go here. Copy/paste the <article> above and edit as needed. -->
+
+                </section>
+
+                <!-- ===================================================================================== -->
+                <!-- FEEDBACK / FORM EMBED SECTION                                                       -->
+                <!--                                                                                     -->
+                <!-- This section is designed for pasting in an external form (Google Forms, Typeform,   -->
+                <!-- etc.). You can also remove the example and keep only your real embed code.          -->
+                <!--                                                                                     -->
+                <!-- HOW TO USE:                                                                         -->
+                <!-- - Google Forms:                                                                     -->
+                <!--     1. In Google Forms, click \"Send\" -> \"<>\" (Embed HTML).                       -->
+                <!--     2. Copy the <iframe> HTML code.                                                 -->
+                <!--     3. Paste it inside the -->
+                <!--        FORM EMBED START --> 
+                <!--        area below.             -->
+                <!-- - Typeform or other services:                                                       -->
+                <!--     1. Copy the embed code they provide (iframe or script).                         -->
+                <!--     2. Paste it in the same spot.                                                   -->
+                <!-- ===================================================================================== -->
+
+                <section id="feedback-form" class="mb-5">
+                    <h2 class="mb-3 text-center">Feedback & Suggestions</h2>
+                    <p class="text-center mb-4">
+                        <strong>TheTycoon - Fire0x Tools</strong> is a comprehensive web-based toolkit designed to help players manage their businesses, track progress, and optimize their gameplay experience in <strong>The Tycoon</strong> game.
+                    </p>
+                    <p class="text-center mb-4">
+                        This website provides various tools including:
+                    </p>
+                    <ul class="list-unstyled text-center mb-4" style="max-width: 600px; margin: 0 auto;">
+                        <li class="mb-2">📋 <strong>Business Checklist</strong> - Track businesses across tiers with stock calculations, product management, and summaries</li>
+                        <li class="mb-2">🛒 <strong>Traveling Merchants</strong> - Monitor merchant rotations, locations, prices, and timers</li>
+                        <li class="mb-2">🚚 <strong>Vehicle Deliveries</strong> - Track vehicle delivery progress and unlock requirements</li>
+                        <li class="mb-2">🎓 <strong>Education Timer</strong> - Monitor education and training timers with real-time countdowns</li>
+                        <li class="mb-2">🏠 <strong>Apartment Management</strong> - Manage apartment-related tasks and tracking</li>
+                    </ul>
+                    <p class="text-center mb-4">
+                        We value your feedback! Use the form below to report bugs, suggest new features, share ideas for improvements, or provide general feedback about any of the tools on this website. Your input helps us make TheTycoon tools better for everyone.
+                    </p>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- FORM EMBED START -->
+                            <!--
+                                Replace this example box with your real form embed.
+
+                                Example: Google Forms iframe (paste your own here)
+
+                                <iframe src="YOUR_GOOGLE_FORM_EMBED_URL"
+                                        width="100%"
+                                        height="800"
+                                        frameborder="0"
+                                        marginheight="0"
+                                        marginwidth="0">
+                                    Loading…
+                                </iframe>
+
+                                Example: Typeform embed (paste full script snippet)
+
+                                <div data-tf-live="YOUR_TYPEFORM_ID"></div>
+                                <script src="https://embed.typeform.com/next/embed.js"></script>
+                            -->
+                            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc1-mo-O-b-gluemHq49iyC7ieEl2n0E5ldQFp1uq71M7J5pw/viewform?embedded=true" 
+                                    width="100%" 
+                                    height="800" 
+                                    frameborder="0" 
+                                    marginheight="0" 
+                                    marginwidth="0">
+                                Loading…
+                            </iframe>
+                            <!-- FORM EMBED END -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Optional additional notes section -->
+                <section class="mb-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">How this page works</h2>
+                            <p class="mb-2">
+                                This page is completely static and uses only HTML and Bootstrap styling. To update it:
+                            </p>
+                            <ol class="mb-0">
+                                <li>Open <code>changelog.html</code> in a text editor.</li>
+                                <li>Copy an existing changelog <code>&lt;article class=\"changelog-entry\"&gt;</code> block and edit the text.</li>
+                                <li>Paste external form embed code into the Feedback &amp; Suggestions section when you are ready.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light py-3">
+        <div class="container text-center">
+            <div id="version-display" class="mt-2" style="font-size: 0.875rem; color: #6c757d;">
+                <!-- Version will be inserted here by site-config.js -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- Theme JS -->
+    <script src="js/theme.js"></script>
+    <!-- Site Configuration & Version Manager (load in order) -->
+    <script src="js/config/config-data.js"></script>
+    <script src="js/config/site-config.js"></script>
+    <script src="js/config/version-manager.js"></script>
+    <script src="js/site-config.js"></script>
+    <!-- Navbar Manager -->
+    <script src="js/navbar.js"></script>
+</body>
+</html>
+
+
