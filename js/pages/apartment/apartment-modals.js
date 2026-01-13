@@ -1064,6 +1064,8 @@
                 }
             }
             
+            // Update window.apartments to reflect changes
+            window.apartments = apartments;
             saveApartmentsToLocalStorage();
             
             const importModal = bootstrap.Modal.getInstance(document.getElementById('importModal'));
