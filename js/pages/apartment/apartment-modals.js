@@ -12,7 +12,9 @@
     }
 
     const debugManager = window.apartmentDebugManager;
-    const apartments = window.apartments;
+    // Always reference window.apartments directly to get the latest data
+    // Don't capture as const since we need to modify it and get fresh data
+    const getApartments = () => window.apartments || [];
     const getApartmentById = window.getApartmentById;
     const getApartmentReviews = window.getApartmentReviews;
     const getApartmentRatingBreakdown = window.getApartmentRatingBreakdown;
@@ -51,6 +53,7 @@
 
     // Edit apartment
     async function editApartment(id) {
+        const apartments = getApartments();
         const apartment = apartments.find(apt => apt.id === id);
         if (!apartment) return;
         
@@ -200,6 +203,7 @@
             const id = document.getElementById('apartmentId').value;
             let savedApartment;
             
+            const apartments = getApartments();
             if (id) {
                 debugManager.log('Updating apartment ID:', id);
                 const apartmentIndex = apartments.findIndex(apt => apt.id === parseInt(id));
@@ -212,6 +216,8 @@
                 apartments[apartmentIndex] = { ...apartments[apartmentIndex], ...apartmentData };
                 apartments[apartmentIndex].reviews = existingReviews;
                 savedApartment = apartments[apartmentIndex];
+                // Update window.apartments to reflect changes
+                window.apartments = apartments;
             } else {
                 debugManager.log('Creating new apartment');
                 const newId = apartments.length > 0 ? Math.max(...apartments.map(apt => apt.id || 0)) + 1 : 1;
@@ -233,6 +239,8 @@
                     reviews: []
                 };
                 apartments.push(savedApartment);
+                // Update window.apartments to reflect changes
+                window.apartments = apartments;
             }
             
             saveApartmentsToLocalStorage();
@@ -291,6 +299,7 @@
             return;
         }
         
+        const apartments = getApartments();
         const apartmentIndex = apartments.findIndex(apt => apt.id === id);
         if (apartmentIndex === -1) {
             alert('Apartment not found');
@@ -298,6 +307,8 @@
         }
         
         apartments.splice(apartmentIndex, 1);
+        // Update window.apartments to reflect changes
+        window.apartments = apartments;
         saveApartmentsToLocalStorage();
         
         if (typeof window.loadApartments === 'function') {
@@ -840,6 +851,7 @@
 
     // Export timers only
     function exportTimers() {
+        const apartments = getApartments();
         const timers = apartments.map(apt => ({
             apartment_id: apt.id,
             apartment_name: apt.apartment_name || apt.location || 'Unnamed',
@@ -867,6 +879,7 @@
 
     // Export reviews only
     function exportReviews() {
+        const apartments = getApartments();
         const allReviews = [];
         apartments.forEach(apt => {
             const reviews = apt.reviews || [];
@@ -902,6 +915,7 @@
 
     // Export all data
     function exportAll() {
+        const apartments = getApartments();
         const apartmentsData = apartments.map(apt => {
             const { reviews, ...aptWithoutReviews } = apt;
             return aptWithoutReviews;
@@ -1016,6 +1030,7 @@
                 throw new Error('Invalid format: Expected an array of apartments or an object with an apartments array');
             }
             
+            const apartments = getApartments();
             let successCount = 0;
             let errorCount = 0;
             const errors = [];
@@ -1298,6 +1313,7 @@
             const errors = [];
             
             if (imported.apartments && Array.isArray(imported.apartments)) {
+                const apartments = getApartments();
                 for (const aptData of imported.apartments) {
                     try {
                         const reviews = aptData.reviews || [];
@@ -1325,6 +1341,8 @@
                         debugManager.log('Error importing apartment:', aptData, error);
                     }
                 }
+                // Update window.apartments to reflect changes
+                window.apartments = apartments;
             }
             
             if (imported.timers && Array.isArray(imported.timers)) {

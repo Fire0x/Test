@@ -12,9 +12,11 @@
     }
 
     const debugManager = window.apartmentDebugManager;
-    const apartments = window.apartments;
-    const hiddenApartments = window.hiddenApartments;
-    const lockedApartments = window.lockedApartments;
+    // Don't capture apartments as const - always reference window.apartments directly
+    // This ensures we get the latest data after initializeApartmentsData() is called
+    const getApartments = () => window.apartments || [];
+    const hiddenApartments = window.hiddenApartments || [];
+    const lockedApartments = window.lockedApartments || [];
     const escapeHtml = window.escapeHtml;
     const formatNumber = window.formatNumber;
     const formatDateDDMMMYYYYWithTime = window.formatDateDDMMMYYYYWithTime;
@@ -254,6 +256,7 @@
         
         updateApartmentCounterDisplay();
         
+        const apartments = getApartments();
         apartments.forEach(apt => {
             const row = document.createElement('tr');
             
@@ -339,7 +342,8 @@
     function loadAllApartments() {
         const container = document.getElementById('allApartmentsContainer');
         if (!container) return;
-            
+        
+        const apartments = getApartments();
         const sortedApartments = [...apartments].sort((a, b) => {
             if (a.owned_number === null || a.owned_number === undefined) return 1;
             if (b.owned_number === null || b.owned_number === undefined) return -1;
@@ -552,6 +556,7 @@
 
     // Show all apartments
     function showAllApartments() {
+        const apartments = getApartments();
         apartments.forEach(apt => {
             const index = hiddenApartments.indexOf(apt.id);
             if (index > -1) {
@@ -571,6 +576,7 @@
 
     // Hide all apartments
     function hideAllApartments() {
+        const apartments = getApartments();
         apartments.forEach(apt => {
             if (!hiddenApartments.includes(apt.id)) {
                 hiddenApartments.push(apt.id);
@@ -667,6 +673,7 @@
         const container = document.getElementById('allReviewsContainer');
         if (!container) return;
         
+        const apartments = getApartments();
         const allReviews = [];
         apartments.forEach(apt => {
             const reviews = apt.reviews || [];
@@ -729,6 +736,7 @@
         const overallRatingEl = document.getElementById('overviewOverallRating');
         const totalReviewsEl = document.getElementById('overviewTotalReviews');
         
+        const apartments = getApartments();
         if (totalApartmentsEl) {
             totalApartmentsEl.textContent = apartments.length;
         }
@@ -785,6 +793,7 @@
         const loadingAlert = document.getElementById('loadingAlert');
         const tableContainer = document.getElementById('apartmentsTableContainer');
         const noApartmentsAlert = document.getElementById('noApartmentsAlert');
+        const apartments = getApartments();
         if (loadingAlert) loadingAlert.style.display = 'none';
         if (tableContainer) tableContainer.style.display = 'block';
         if (apartments.length === 0) {

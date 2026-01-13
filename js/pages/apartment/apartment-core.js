@@ -43,6 +43,8 @@
                 if (!data.version) {
                     saveApartmentsToLocalStorage();
                 }
+                // Update window.apartments to ensure UI modules have the latest data
+                window.apartments = apartments;
                 debugManager.log('✅ Loaded apartments from localStorage:', apartments.length);
                 return true;
             } catch (e) {
@@ -51,6 +53,8 @@
         }
         
         apartments = [];
+        // Update window.apartments to ensure UI modules have the latest data
+        window.apartments = apartments;
         saveApartmentsToLocalStorage();
         debugManager.log('✅ Created empty apartments data');
         return true;
