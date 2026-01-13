@@ -336,6 +336,12 @@
         initHowToUseCollapse();
         initAllBusinessSummaryCollapse();
         initSummaryCollapse();
+        
+        // Initialize emoji picker
+        if (typeof window.initializeEmojiPicker === 'function') {
+            window.initializeEmojiPicker('emojiPicker');
+        }
+        
         debugManager.log('Page initialized');
         
         // Initialize time updates (only once)
